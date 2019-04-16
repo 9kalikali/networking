@@ -2,8 +2,8 @@
 
 ## 相关说明
 
-OS: ubuntu 18.04
-apt安装mininet（采用源码安装一直报错
+OS: ubuntu 18.04  
+apt安装mininet（采用源码安装一直报错  
 作业题目：作业2
 
 ## 作业进度
