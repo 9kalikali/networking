@@ -15,7 +15,7 @@ void icmp_send_packet(const char *in_pkt, int len, u8 type, u8 code, u32 sip)
 	char* icmp_pkt;
 	struct ether_header* eh_tmp = (struct ether_header*)in_pkt;
 	struct iphdr* iph_tmp = (struct iphdr*)(in_pkt + ETHER_HDR_SIZE);
-	struct icmphdr* icmp_tmp = (struct icmp*)(in_pkt + ETHER_HDR_SIZE + IP_HDR_SIZE(iph_tmp));
+	struct icmphdr* icmp_tmp = (struct icmphdr*)(in_pkt + ETHER_HDR_SIZE + IP_HDR_SIZE(iph_tmp));
 
 	if(type == 0 && code == 0)
 	{
@@ -29,8 +29,8 @@ void icmp_send_packet(const char *in_pkt, int len, u8 type, u8 code, u32 sip)
 		u32 daddr_tmp = sip;
 		u32 saddr_tmp = ntohl(iph_tmp->saddr);
 		ip_init_hdr(iph, daddr_tmp, saddr_tmp, len-ETHER_HDR_SIZE, IPPROTO_ICMP);
-		icmp->type = 0;
-		icmp->code = 0;
+		icmph->type = 0;
+		icmph->code = 0;
 
 		memcpy( ((char *)icmph) + 4, 
 					((char *)icmp_tmp) + 4, 
@@ -56,7 +56,7 @@ void icmp_send_packet(const char *in_pkt, int len, u8 type, u8 code, u32 sip)
 		memset(((char *)icmph) + 4, 0, 4);
 		icmph->type = type;
 		icmph->code = code;
-		icmp->checksum = icmp_checksum(icmph, mlen - ETHER_HDR_SIZE - IP_HDR_SIZE(iph_tmp));
+		icmph->checksum = icmp_checksum(icmph, mlen - ETHER_HDR_SIZE - IP_HDR_SIZE(iph_tmp));
 	}
 	ip_send_packet(icmp_pkt, mlen);
 }
