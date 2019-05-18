@@ -30,15 +30,15 @@ void arp_send_request(iface_info_t *iface, u32 dst_ip)
 	eh->ether_type = htons(ETH_P_ARP);
 	// set-up arp protocol
 	struct ether_arp* eh_arp;
-	eh_arp = (strcut ether_arp*)(packet + ETHER_HDR_SIZE);
+	eh_arp = (struct ether_arp*)(packet + ETHER_HDR_SIZE);
 	eh_arp->arp_hrd = htons((u16)0x01);
-	eh_arp->arp)_pro = htons((u16)0x0800);
+	eh_arp->arp_pro = htons((u16)0x0800);
 	eh_arp->arp_hln = (u8)6;
 	eh_arp->arp_pln = (u8)4;
 	eh_arp->arp_op = htons((u16)0x01);
 	memcpy(eh_arp->arp_sha, iface->mac, ETH_ALEN);
-	eh_arp->arp_spa = htol(iface->ip);
-	eh_arp->arp_tpa = htol(dst_ip);
+	eh_arp->arp_spa = htonl(iface->ip);
+	eh_arp->arp_tpa = htonl(dst_ip);
 	memset(eh_arp->arp_tha, 0, ETH_ALEN);
 	iface_send_packet(iface, packet, (ETHER_HDR_SIZE + sizeof(struct ether_arp)));
 }
@@ -62,7 +62,7 @@ void arp_send_reply(iface_info_t *iface, struct ether_arp *req_hdr)
 	memcpy(eh->ether_shost, iface->mac, ETH_ALEN);
 	memcpy(eh->ether_dhost, req_hdr->arp_sha, ETH_ALEN);
 	eh_arp->arp_hrd = htons((u16)0x01);
-	eh_arp->arp)_pro = htons((u16)0x0800);
+	eh_arp->arp_pro = htons((u16)0x0800);
 	eh_arp->arp_hln = (u8)6;
 	eh_arp->arp_pln = (u8)4;
 	eh_arp->arp_op = htons(ARPOP_REPLY);
@@ -77,10 +77,10 @@ void arp_send_reply(iface_info_t *iface, struct ether_arp *req_hdr)
 void handle_arp_packet(iface_info_t *iface, char *packet, int len)
 {
 	//fprintf(stderr, "TODO: process arp packet: arp request & arp reply.\n");
-	struct ether_header* eh;
+	//struct ether_header* eh;
 	struct ether_arp* eh_arp;
 
-	eh = (struct ether_header*)(packet);
+	//eh = (struct ether_header*)(packet);
 	eh_arp = (struct ether_arp*)(packet + ETHER_HDR_SIZE);
 	if(ntohs(eh_arp->arp_op) == 0x01)
 	{
