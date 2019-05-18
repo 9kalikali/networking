@@ -63,7 +63,7 @@ int arpcache_lookup(u32 ip4, u8 mac[ETH_ALEN])
 		{
 			for(int j = 0; j < ETH_ALEN; j++)
 				mac[j] = arpcache.entries[i].mac[j];
-			pthread_mutex_unclock(&arpcache.lock);
+			pthread_mutex_unlock(&arpcache.lock);
 			return 1;
 		}
 	}
@@ -90,7 +90,7 @@ void arpcache_append_packet(iface_info_t *iface, u32 ip4, char *packet, int len)
 		if(req_entry->iface->ip == iface->ip && 
 			req_entry->ip4 == ip4)
 		{
-			printf("this is %d th q.\n", q++);
+			//printf("this is %d th q.\n", q++);
 			struct cached_pkt* pkt_entry;
 			pkt_entry = (struct cached_pkt*)malloc(sizeof(struct cached_pkt));
 			pkt_entry->packet = packet;
@@ -145,15 +145,15 @@ void arpcache_insert(u32 ip4, u8 mac[ETH_ALEN])
 		}
 	}
 
-	if(flag = 0)
+	if(flag == 0)
 	{
 		// if not found, randomly delete
 		int idx = rand()%MAX_ARP_SIZE;
 		pthread_mutex_lock(&arpcache.lock);
 		arpcache.entries[idx].ip4 = ip4;
 		memcpy(arpcache.entries[idx].mac, mac, ETH_ALEN);
-		arpcache.entries[i].added = time(NULL);
-		arpcache.entries[i].valid = 1;
+		arpcache.entries[idx].added = time(NULL);
+		arpcache.entries[idx].valid = 1;
 		pthread_mutex_unlock(&arpcache.lock);
 	}
 
@@ -165,7 +165,7 @@ void arpcache_insert(u32 ip4, u8 mac[ETH_ALEN])
 		if(req_entry->ip4 == ip4)
 		{
 			struct cached_pkt *pkt_entry = NULL, *pkt_q;
-			list_for_each_entry_safe(pkt_entry, pkt_q\, &(req_entry->cached_packets), list)
+			list_for_each_entry_safe(pkt_entry, pkt_q, &(req_entry->cached_packets), list)
 			{
 				char* packet = pkt_entry->packet;
 				int len = pkt_entry->len;
@@ -228,12 +228,12 @@ void *arpcache_sweep(void *arg)
 					char* packet = (char *)req_ip_pkt->packet;
 					struct ether_header* eh = (struct ether_header *)packet;
 					struct iphdr* m_iph = packet_to_ip_hdr(packet);
-					u32 src_ip = ntohl(m_iph->saddr);
-					u32 dst_ip = ntohl(m_iph->daddr);
+					// u32 src_ip = ntohl(m_iph->saddr);
+					// u32 dst_ip = ntohl(m_iph->daddr);
 					pthread_mutex_unlock(&arpcache.lock);
 					u32 dst = ntohl(m_iph->saddr);
 					rt_entry_t* m_entry = longest_prefix_match(dst);
-					u32 sip = my_entry->iface->ip;
+					u32 sip = m_entry->iface->ip;
 
 					icmp_send_packet( (char*)req_ip_pkt->packet, req_ip_pkt->len, 3, 1, sip);
 					pthread_mutex_lock(&arpcache.lock);
