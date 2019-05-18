@@ -15,8 +15,8 @@ tips: 建议直接su切到root用户下,就不用每次都输sudo了,看个人�
    + 进入到networking/router目录下, 输入`make`指令进行编译, 此时会报一些warning, 可以不用理会<img src="https://github.com/9kalikali/networking/blob/master/imgs/before_compile.png">  
    + 编译成功后, 目录下会多出一个叫`router`的可执行文件<img src="https://github.com/9kalikali/networking/blob/master/imgs/compiled.png">
 2. 运行router_topo.py, 此时会自动进入mininet交互界面, 此时可以通过`nodes`和`net`命令检查下拓扑是否正确  
-3. 执行xterm r1命令, 会自动新开启一个的终端, 可以理解为进入router1的系统, 在此窗口执行./router, 路由器启动完成  
-4. 执行xterm h1, 与上一步相同会开起新终端进入host1, ping相应的地址
+3. 执行`xterm r1`命令, 会自动新开启一个的终端, 可以理解为进入router1的系统, 在此窗口执行./router, 路由器启动完成  
+4. 执行`xterm h1`, 与上一步相同会开起新终端进入host1, ping相应的地址
 <img src="https://github.com/9kalikali/networking/blob/master/imgs/route_running.png">
 
 ## TODO
