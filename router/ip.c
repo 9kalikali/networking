@@ -53,5 +53,25 @@ rt_entry_t *longest_prefix_match(u32 dst)
 void ip_send_packet(char *packet, int len)
 {
 	//fprintf(stderr, "TODO: send ip packet.\n");
-	struct iphdr *ip = packet_to_ip_hdr(packet);
+	struct iphdr* ip = packet_to_ip_hdr(packet);
+	u32 dst = ntohl(ip->addr);
+	rt_entry_t *entry = longest_prefix_match(dst);
+	if( !entry )
+	{
+		log(ERROR, "Cannot find forwarding rule for IP (destiantion:"IP_FMT") packet", 
+				HOST_IP_FMT_STR(dst));
+		free(packet);
+		return;
+	}
+
+	u32 next_hop = entry->gw;
+	if(!next_hop) next_hop = dst;
+
+	struct ether_header* eh = (struct ether_header*)(packet);
+	eh->ether_type = htons(ETH_P_IP);
+	struct iphdr* iph;
+	iph = (struct iphdr*)(packet + ETHER_HDR_SIZE);
+	iph->saddr = htonl(entry->iface->ip);
+	memcpy(eh->ether_shost, entry->iface->mac, ETH_ALEN);
+	iface_send_packet_by_arp(entry->iface, next_hop, packet, len);
 }
