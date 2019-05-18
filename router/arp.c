@@ -21,7 +21,7 @@ void arp_send_request(iface_info_t *iface, u32 dst_ip)
 	char* packet;
 	struct ether_header* eh;
 
-	packet = (char*)malloc(ETHER_HDR_SIZE + sizeof(ether_arp));
+	packet = (char*)malloc(ETHER_HDR_SIZE + sizeof(struct ether_arp));
 	eh = (struct ether_header*)(packet);
 	memcpy(eh->ether_shost, iface->mac, ETH_ALEN);
 	u8 tmp = 255;
@@ -58,7 +58,7 @@ void arp_send_reply(iface_info_t *iface, struct ether_arp *req_hdr)
 	struct ether_arp* eh_arp;
 	u32 my_ip = ntohl(req_hdr->arp_spa);
 
-	eh_arp = (struct eh_arp*)(packet + ETHER_HDR_SIZE);
+	eh_arp = (struct ether_arp*)(packet + ETHER_HDR_SIZE);
 	memcpy(eh->ether_shost, iface->mac, ETH_ALEN);
 	memcpy(eh->ether_dhost, req_hdr->arp_sha, ETH_ALEN);
 	eh_arp->arp_hrd = htons((u16)0x01);
