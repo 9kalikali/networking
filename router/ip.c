@@ -54,7 +54,7 @@ void ip_send_packet(char *packet, int len)
 {
 	//fprintf(stderr, "TODO: send ip packet.\n");
 	struct iphdr* ip = packet_to_ip_hdr(packet);
-	u32 dst = ntohl(ip->addr);
+	u32 dst = ntohl(ip->daddr);
 	rt_entry_t *entry = longest_prefix_match(dst);
 	if( !entry )
 	{
