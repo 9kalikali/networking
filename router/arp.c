@@ -23,7 +23,7 @@ void arp_send_request(iface_info_t *iface, u32 dst_ip)
 
 	packet = (char*)malloc(ETHER_HDR_SIZE + sizeof(ether_arp));
 	eh = (struct ether_header*)(packet);
-	memccpy(eh->ether_shost, iface->mac, ETH_ALEN);
+	memcpy(eh->ether_shost, iface->mac, ETH_ALEN);
 	u8 tmp = 255;
 	for(int q = 0; q < ETH_ALEN; ++q)
 		eh-> ether_dhost[q] = tmp;
@@ -69,7 +69,7 @@ void arp_send_reply(iface_info_t *iface, struct ether_arp *req_hdr)
 	eh_arp->arp_spa = htonl(iface->ip);
 	eh_arp->arp_tpa = htonl(my_ip);
 	memcpy(eh_arp->arp_sha, iface->mac, ETH_ALEN);
-	memccpy(eh_arp->arp_tha, req_hdr->arp_sha, ETH_ALEN);
+	memcpy(eh_arp->arp_tha, req_hdr->arp_sha, ETH_ALEN);
 
 	iface_send_packet(iface, packet, (ETHER_HDR_SIZE + sizeof(struct ether_arp)));
 }
