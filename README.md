@@ -4,7 +4,7 @@
 
 OS: ubuntu 18.04  
 apt安装mininet（采用源码安装一直报错  
-作业题目：作业2
+作业题目：作业2  
 如何下载本工程:   
 虚拟机上安装git `sudo apt-get install git`  
 用git clone 下载 `sudo git clone https://github.com/9kalikali/networking.git`  
