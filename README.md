@@ -10,6 +10,12 @@ apt安装mininet（采用源码安装一直报错
 用git clone 下载 `sudo git clone https://github.com/9kalikali/networking.git`  
 tips: 建议直接su切到root用户下,就不用每次都输sudo了,看个人习惯  
 
+## 主要文件
+- arp.c, arpcache.c 负责处理arp请求和应答, arp缓存操作(查询和更新)
+- icmp.c 负责icmp转发
+- ip.c, ip_forwarding.c 负责ip地址查找和ip数据包转发
+- router_topo.py 建立网络拓扑
+
 ## 实验流程
 1. 编译路由器程序  
    + 进入到networking/router目录下, 输入`make`指令进行编译, 此时会报一些warning, 可以不用理会<img src="https://github.com/9kalikali/networking/blob/master/imgs/before_compile.png">  
