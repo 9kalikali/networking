@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // forward the IP packet from the interface specified by longest_prefix_match, 
 // when forwarding the packet, you should check the TTL, update the checksum,
@@ -16,7 +17,7 @@ void ip_forward_packet(u32 ip_dst, char *packet, int len)
 	//fprintf(stderr, "TODO: forward ip packet.\n");
 	struct ether_header* eh = (struct ether_header*)(packet);
 	struct iphdr* iph = packet_to_ip_hdr(packet);
-	struct icmphdr* m_icmph = (struct icmphdr*)(packet + ETHER_HDR_SIZE + IP_HDR_SIZE(iph));
+	// struct icmphdr* m_icmph = (struct icmphdr*)(packet + ETHER_HDR_SIZE + IP_HDR_SIZE(iph));
 	u32 src = ntohl(iph->saddr);
 	rt_entry_t* m_entry = longest_prefix_match(ip_dst);
 	rt_entry_t* t_entry = longest_prefix_match(src);
