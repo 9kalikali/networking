@@ -54,9 +54,9 @@ if __name__ == '__main__':
     r3.cmd('route add -net 10.0.2.0 netmask 255.255.255.0 gw 10.0.4.2 dev r3-eth1')
 
     for r in (r1, r2, r3):
-        r1.cmd('./scripts/disable_arp.sh')
-        r1.cmd('./scripts/disable_icmp.sh')
-        r1.cmd('./scripts/disable_ip_forward.sh')
+        r.cmd('./scripts/disable_arp.sh')
+        r.cmd('./scripts/disable_icmp.sh')
+        r.cmd('./scripts/disable_ip_forward.sh')
 
     net.start()
     CLI(net)
