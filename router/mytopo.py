@@ -27,9 +27,9 @@ if __name__ == '__main__':
     h1, h2, h3= net.get('h1', 'h2', 'h3')
     r1, r2, r3 = net.get('r1', 'r2', 'r3')
 
-    h1.cmd('ifconfig h11-eth0 10.0.1.11/24')
-    h2.cmd('ifconfig h11-eth0 10.0.2.22/24')
-    h3.cmd('ifconfig h11-eth0 10.0.3.33/24')
+    h1.cmd('ifconfig h1-eth0 10.0.1.11/24')
+    h2.cmd('ifconfig h2-eth0 10.0.2.22/24')
+    h3.cmd('ifconfig h3-eth0 10.0.3.33/24')
 
     h1.cmd('route add default gw 10.0.1.1')
     h2.cmd('route add default gw 10.0.2.1')
