@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // send icmp packet
 void icmp_send_packet(const char *in_pkt, int len, u8 type, u8 code, u32 sip)
