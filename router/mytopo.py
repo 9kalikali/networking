@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     for h in (h11, h12, h21, h22, h31):
         h.cmd('./scripts/disable_offloading.sh')
-        h.cnd('./scripts/disable_ipv6.sh')
+        h.cmd('./scripts/disable_ipv6.sh')
     
     r1.cmd('ifconfig r1-eth0 10.0.1.1/24')
     r1.cmd('ifconfig r1-eth1 10.0.4.1/24')
