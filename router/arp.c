@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
- #include "log.h"
+// #include "log.h"
 
 // send an arp request: encapsulate an arp request packet, send it out through
 // iface_send_packet
