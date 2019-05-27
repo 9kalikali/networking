@@ -48,6 +48,7 @@ if __name__ == '__main__':
     r2.cmd('ifconfig r2-eth1 10.0.4.2/24')
     r2.cmd('ifconfig r2-eth2 10.0.4.3/24')
     r2.cmd('route add -net 10.0.1.0 netmask 255.255.255.0 gw 10.0.4.1 dev r2-eth1')
+    r2.cmd('route add -net 10.0.3.0 netmask 255.255.255.0 gw 10.0.4.4 dev r2-eth1')
     r2.cmd('route add -net 10.0.3.0 netmask 255.255.255.0 gw 10.0.4.4 dev r2-eth2')
 
     r3.cmd('ifconfig r3-eth0 10.0.3.1/24')
