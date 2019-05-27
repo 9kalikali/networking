@@ -42,20 +42,17 @@ if __name__ == '__main__':
     r1.cmd('ifconfig r1-eth0 10.0.1.1/24')
     r1.cmd('ifconfig r1-eth1 10.0.4.1/24')
     r1.cmd('route add -net 10.0.2.0 netmask 255.255.255.0 gw 10.0.4.2 dev r1-eth1')
-    r1.cmd('route add -net 10.0.3.0 netmask 255.255.255.0 gw 10.0.4.2 dev r1-eth1')
+    
 
     r2.cmd('ifconfig r2-eth0 10.0.2.1/24')
     r2.cmd('ifconfig r2-eth1 10.0.4.2/24')
     r2.cmd('ifconfig r2-eth2 10.0.4.3/24')
     r2.cmd('route add -net 10.0.1.0 netmask 255.255.255.0 gw 10.0.4.1 dev r2-eth1')
-    r2.cmd('route add -net 10.0.3.0 netmask 255.255.255.0 gw 10.0.4.4 dev r2-eth1')
     r2.cmd('route add -net 10.0.3.0 netmask 255.255.255.0 gw 10.0.4.4 dev r2-eth2')
-    r2.cmd('route add -net 10.0.1.0 netmask 255.255.255.0 gw 10.0.4.1 dev r2-eth2')
 
     r3.cmd('ifconfig r3-eth0 10.0.3.1/24')
     r3.cmd('ifconfig r3-eth1 10.0.4.4/24')
     r3.cmd('route add -net 10.0.2.0 netmask 255.255.255.0 gw 10.0.4.3 dev r3-eth1')
-    r3.cmd('route add -net 10.0.1.0 netmask 255.255.255.0 gw 10.0.4.3 dev r3-eth1')
 
     for r in (r1, r2, r3):
         r.cmd('./scripts/disable_arp.sh')

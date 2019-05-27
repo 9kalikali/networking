@@ -58,8 +58,8 @@ void ip_send_packet(char *packet, int len)
 	rt_entry_t *entry = longest_prefix_match(dst);
 	if( !entry )
 	{
-		log(ERROR, "Cannot find forwarding rule for IP (destiantion:"IP_FMT") packet", 
-				HOST_IP_FMT_STR(dst));
+		// log(ERROR, "Cannot find forwarding rule for IP (destiantion:"IP_FMT") packet", 
+		//		HOST_IP_FMT_STR(dst));
 		free(packet);
 		return;
 	}
