@@ -27,7 +27,7 @@ if __name__ == '__main__':
     topo = RouterTopo()
     net = Mininet(topo = topo, controller = None)
 
-    h11, h12, h21, h22, h31 = net.get('h11', 'h12', 'h21', 'h22'. 'h31')
+    h11, h12, h21, h22, h31 = net.get('h11', 'h12', 'h21', 'h22', 'h31')
     r1, r2, r3 = net.get('r1', 'r2', 'r3')
 
     h11.cmd('ifconfig h11-eth0 10.0.1.11/24')
