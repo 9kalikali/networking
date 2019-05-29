@@ -106,7 +106,7 @@ void handle_arp_packet(iface_info_t *iface, char *packet, int len)
 // this packet into arpcache, and send arp request.
 void iface_send_packet_by_arp(iface_info_t *iface, u32 dst_ip, char *packet, int len)
 {
-	struct ether_header *eh = (struct ether_header *)(*packet);
+	struct ether_header *eh = (struct ether_header *)&(*packet);
 	memcpy(eh->ether_shost, iface->mac, ETH_ALEN);
 	eh->ether_type = htons(ETH_P_IP);
 
