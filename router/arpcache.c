@@ -170,7 +170,7 @@ void arpcache_insert(u32 ip4, u8 mac[ETH_ALEN])
 				char *packet = pkt_entry->packet;
 				int len = pkt_entry->len;
 				struct ether_header *eh; //(struct ehter_header *)&(*packet);
-				memcmp(eh, packet, sizeof(struct ether_header));
+				memcmp(eh, *packet, sizeof(struct ether_header));
 				memcpy(eh->ether_dhost, mac, ETH_ALEN);
 				iface_send_packet(req_entry->iface, packet, len);
 				list_delete_entry( &(pkt_entry->list) );
