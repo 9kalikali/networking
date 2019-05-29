@@ -167,10 +167,9 @@ void arpcache_insert(u32 ip4, u8 mac[ETH_ALEN])
 			struct cached_pkt *pkt_entry = NULL, *pkt_q;
 			list_for_each_entry_safe(pkt_entry, pkt_q, &(req_entry->cached_packets), list)
 			{
-				char* packet = pkt_entry->packet;
+				char *packet = pkt_entry->packet;
 				int len = pkt_entry->len;
-				packet = (char*)malloc(ETHER_HDR_SIZE + sizeof(struct ether_arp));
-				struct ether_header* eh = (struct ehter_header *)(packet);
+				struct ether_header *eh = (struct ehter_header *)&(*packet);
 				memcpy(eh->ether_dhost, mac, ETH_ALEN);
 				iface_send_packet(req_entry->iface, packet, len);
 				list_delete_entry( &(pkt_entry->list) );
